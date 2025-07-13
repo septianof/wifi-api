@@ -14,11 +14,8 @@ class Pelanggan extends Model
         'nama',
         'alamat',
         'no_hp',
-        'paket_id',
+        'tagihan',
+        'tanggal_jatuh_tempo',
+        'status_bayar',
     ];
-
-    public function paket()
-    {
-        return $this->belongsTo(Paket::class);
-    }
 }

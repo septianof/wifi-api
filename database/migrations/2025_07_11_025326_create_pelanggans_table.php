@@ -13,7 +13,9 @@ return new class extends Migration
             $table->string('nama');
             $table->string('alamat');
             $table->string('no_hp')->nullable();
-            $table->foreignId('paket_id')->constrained('pakets')->onDelete('cascade');
+            $table->integer('tagihan'); // pengganti paket
+            $table->date('tanggal_jatuh_tempo')->nullable();
+            $table->boolean('status_bayar')->default(false);
             $table->softDeletes();
             $table->timestamps();
         });
