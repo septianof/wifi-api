@@ -31,7 +31,7 @@
             const formData = new FormData(form);
             const data = Object.fromEntries(formData);
 
-            const res = await fetch('/api/pelanggans', {
+            const res = await fetch('/api/pelanggan', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
@@ -39,7 +39,7 @@
 
             if (res.ok) {
                 alert('Data pelanggan berhasil ditambahkan');
-                window.location.href = '/pelanggans'; // arahkan ke halaman index
+                window.location.href = '/pelanggan'; // arahkan ke halaman index
             } else {
                 alert('Gagal menambah pelanggan');
             }

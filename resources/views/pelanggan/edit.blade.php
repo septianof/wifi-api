@@ -26,7 +26,7 @@
         const id = new URLSearchParams(window.location.search).get('id');
 
         async function getData() {
-            const res = await fetch(`/api/pelanggans/${id}`);
+            const res = await fetch(`/api/pelanggan/${id}`);
             const data = await res.json();
 
             document.getElementById('nama').value = data.nama;
@@ -41,7 +41,7 @@
             const formData = new FormData(this);
             const data = Object.fromEntries(formData);
 
-            const res = await fetch(`/api/pelanggans/${id}`, {
+            const res = await fetch(`/api/pelanggan/${id}`, {
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(data)
@@ -49,7 +49,7 @@
 
             if (res.ok) {
                 alert('Data berhasil diperbarui');
-                window.location.href = '/pelanggans';
+                window.location.href = '/pelanggan';
             } else {
                 alert('Gagal update data');
             }

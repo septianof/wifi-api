@@ -11,9 +11,9 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:sanctum');
 
 // Route Khusus pelanggan
-Route::get('pelanggans/jatuh-tempo', [PelangganController::class, 'pelangganJatuhTempo']);
-Route::post('/pelanggans/reset-status', [PelangganController::class, 'resetStatusBayar']);
-Route::put('pelanggans/{id}/centang-bayar', [PelangganController::class, 'centangBayar']);
+Route::get('pelanggan/jatuh-tempo', [PelangganController::class, 'pelangganJatuhTempo']);
+Route::post('/pelanggan/reset-status', [PelangganController::class, 'resetStatusBayar']);
+Route::put('pelanggan/{id}/centang-bayar', [PelangganController::class, 'centangBayar']);
 
 // RESTful pelanggan
-Route::apiResource('pelanggans', PelangganController::class);
+Route::apiResource('pelanggan', PelangganController::class);

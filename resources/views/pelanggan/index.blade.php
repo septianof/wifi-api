@@ -26,14 +26,14 @@
                 <th>Aksi</th>
             </tr>
         </thead>
-        <tbody id="tabel-pelanggans">
+        <tbody id="tabel-pelanggan">
             <!-- Diisi JS -->
         </tbody>
     </table>
 
     <script>
         async function fetchData() {
-            const res = await fetch('/api/pelanggans');
+            const res = await fetch('/api/pelanggan');
             const data = await res.json();
 
             const rows = data.data.map(pelanggan => `
@@ -52,12 +52,12 @@
                 </tr>
             `).join('');
 
-            document.getElementById('tabel-pelanggans').innerHTML = rows;
+            document.getElementById('tabel-pelanggan').innerHTML = rows;
         }
 
         async function resetStatus() {
             if (!confirm("Reset semua status bayar?")) return;
-            await fetch('/api/pelanggans/reset-status', { method: 'POST' });
+            await fetch('/api/pelanggan/reset-status', { method: 'POST' });
             alert('Semua status telah di-reset');
             fetchData();
             cekJatuhTempo();
@@ -65,27 +65,27 @@
 
         async function hapusPelanggan(id) {
             if (!confirm("Yakin hapus pelanggan?")) return;
-            await fetch(`/api/pelanggans/${id}`, { method: 'DELETE' });
+            await fetch(`/api/pelanggan/${id}`, { method: 'DELETE' });
             fetchData();
             cekJatuhTempo();
         }
 
         async function centangBayar(id) {
-            await fetch(`/api/pelanggans/${id}/centang-bayar`, { method: 'PUT' });
+            await fetch(`/api/pelanggan/${id}/centang-bayar`, { method: 'PUT' });
             fetchData();
             cekJatuhTempo();
         }
 
         function tambahPelanggan() {
-            window.location.href = '/pelanggans/create';
+            window.location.href = '/pelanggan/create';
         }
 
         function editPelanggan(id) {
-            window.location.href = `/pelanggans/edit?id=${id}`;
+            window.location.href = `/pelanggan/edit?id=${id}`;
         }
 
         async function cekJatuhTempo() {
-            const res = await fetch('/api/pelanggans/jatuh-tempo');
+            const res = await fetch('/api/pelanggan/jatuh-tempo');
             const data = await res.json();
 
             if (data.length > 0) {

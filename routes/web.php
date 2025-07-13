@@ -3,14 +3,14 @@
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('pelanggan.index');
 });
 
 // View untuk index pelanggan
-Route::view('/pelanggans', 'pelanggans.index');
+Route::view('/pelanggan', 'pelanggan.index');
 
 // View untuk tambah pelanggan
-Route::view('/pelanggans/create', 'pelanggans.create');
+Route::view('/pelanggan/create', 'pelanggan.create');
 
 // View untuk edit pelanggan
-Route::view('/pelanggans/edit', 'pelanggans.edit');
+Route::view('/pelanggan/edit', 'pelanggan.edit');
