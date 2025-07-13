@@ -93,8 +93,25 @@ class PelangganController extends Controller
     // Reset Status Bayar semua pelanggan
     public function resetStatusBayar()
     {
-        Pelanggan::query()->update(['status_bayar' => false]);
-        return response()->json(['message' => 'Status bayar semua pelanggan telah di-reset.']);
+        $pelanggans = Pelanggan::all();
+
+        foreach ($pelanggans as $pelanggan) {
+            // Cek tanggal jatuh tempo pelanggan
+            $jatuhTempo = \Carbon\Carbon::parse($pelanggan->tanggal_jatuh_tempo);
+            $hariIni = now();
+
+            // Kalau tanggal jatuh tempo sudah lewat bulan ini, update ke bulan berikutnya
+            if ($jatuhTempo->lt($hariIni)) {
+                $jatuhTempo->addMonthNoOverflow()->day(25); // ganti tgl 25 sesuai sistem kamu
+            }
+
+            $pelanggan->update([
+                'status_bayar' => false,
+                'tanggal_jatuh_tempo' => $jatuhTempo
+            ]);
+        }
+
+        return response()->json(['message' => 'Status bayar & tanggal jatuh tempo telah diperbarui.']);
     }
 
     // Menampilkan pelanggan yang sudah melewati tanggal jatuh tempo & belum bayar
