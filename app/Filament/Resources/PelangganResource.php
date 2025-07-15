@@ -32,13 +32,15 @@ class PelangganResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('nama')->required(),
-                Textarea::make('alamat')->required(),
-                TextInput::make('no_hp'),
-                TextInput::make('tagihan')
-                    ->numeric()
-                    ->prefix('Rp')
-                    ->required(),
+                TextInput::make('nama')->required()->columnSpanFull(),
+                Textarea::make('alamat')->required()->columnSpanFull(),
+                TextInput::make('no_hp')->tel()->maxLength(15),
+                TextInput::make('tagihan')->numeric()->prefix('Rp')->required(),
+            ])
+            ->columns([
+                'default' => 1,
+                'sm' => 1,
+                'md' => 2,
             ]);
     }
 
@@ -46,19 +48,21 @@ class PelangganResource extends Resource
     {
         return $table
             ->columns([
-                TextColumn::make('nama')->searchable()->sortable(),
-                TextColumn::make('alamat')->limit(20),
-                TextColumn::make('no_hp'),
-                TextColumn::make('tagihan')->money('IDR'),
-                TextColumn::make('tanggal_jatuh_tempo')
-                    ->label('Jatuh Tempo')
-                    ->date()
-                    ->sortable(),
+                TextColumn::make('nama')
+                    ->searchable()
+                    ->sortable()
+                    ->description(fn($record) => $record->no_hp)
+                    ->wrap(),
+
+                TextColumn::make('tagihan')
+                    ->money('IDR')
+                    ->toggleable(),
+
                 TextColumn::make('status_bayar')
                     ->label('Status Bayar')
-                    ->formatStateUsing(fn($state) => $state ? 'LUNAS' : 'BELUM BAYAR')
                     ->badge()
-                    ->color(fn($state) => $state ? 'success' : 'danger'),
+                    ->color(fn($state) => $state ? 'success' : 'danger')
+                    ->formatStateUsing(fn($state) => $state ? 'LUNAS' : 'BELUM BAYAR'),
             ])
             ->filters([
                 Tables\Filters\TrashedFilter::make(),

@@ -7,7 +7,7 @@ use Filament\Widgets\Widget;
 
 class NotifikasiJatuhTempo extends Widget
 {
-    protected static string $view = 'filament.resouces.admin-resource.widgets.notifikasi-jatuh-tempo';
+    protected static string $view = 'filament.resources.admin-resource.widgets.notifikasi-jatuh-tempo';
 
     protected int | string | array $columnSpan = 'full';
 
